@@ -1,0 +1,52 @@
+<div class="brand">
+
+	<!-- logo -->
+	<div class="brand-logo">
+		<img data-ng-src="images/logo.png" height="15" alt="">
+	</div>
+	<!-- /logo -->
+
+	<!-- toggle small sidebar menu -->
+	<a href="javascript:;" class="toggle-sidebar hidden-xs hamburger-icon v3" data-ng-click="app.layout.isSmallSidebar = !app.layout.isSmallSidebar">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</a>
+	<!-- /toggle small sidebar menu -->
+
+</div>
+
+<!-- main navigation -->
+<nav role="navigation" side-navigation>
+
+	<ul class="nav">
+		<li ui-sref-active="active">
+			<a href="#/" ui-sref="app.dashboard">
+				<i class="fa fa-flask"></i>
+				<span>대시보드</span>
+			</a>
+
+		 <li ui-sref-active="active">
+			<a href="#/entities/" ui-sref="app.entities">
+				<i class="fa fa-address-book-o"></i>
+				<span>엔티티</span>
+			</a>
+		</li>
+
+		<li ui-sref-active="active">
+			<a href="#/events/" ui-sref="app.events">
+				<i class="fa fa-calendar"></i>
+				<span>이벤트</span>
+			</a>
+		</li>
+
+		<li ui-sref-active="active">
+			<a href="#/instances/" ui-sref="app.instances">
+				<i class="fa fa-server"></i>
+				<span>인스턴스</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+<!-- /main navigation -->
