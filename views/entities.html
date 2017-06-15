@@ -3,7 +3,7 @@
 		<div class="col-xs-12">
 			<div class="panel">
 				<div class="panel-heading border">
-					Time on the X-Axis
+					엔티티 현황
 				</div>
 				<div class="panel-body">
 					<rickshaw class="rickshaw_graph" rickshaw-options="options1" rickshaw-features="features1" rickshaw-series="series1"></rickshaw>
@@ -12,7 +12,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-xs-12">
 			<div class="panel">
 				<div class="panel-heading border">
@@ -24,6 +24,31 @@
 						<div class="y_axis" id="y_axis"></div>
 						<div class="rickshaw-chart" id="chart2"></div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-heading border">
+					엔티티 목록
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>닉네임</th>
+								<th>본명</th>
+								<th>역할</th>
+								<th>상태</th>
+								<th>생성 날짜</th>
+								<th>업데이트 날짜</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
 			</div>
 		</div>

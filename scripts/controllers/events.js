@@ -1,6 +1,6 @@
 'use strict';
 
-function entitiesCtrl($scope, COLORS) {
+function eventsCtrl($scope, COLORS) {
 	$scope.options1 = {
 		renderer: 'area'
 	};
@@ -58,7 +58,7 @@ function entitiesCtrl($scope, COLORS) {
 
 	$scope.dataTableOpt = {
 		'ajax': {
-			'url': 'https://api.memento.live/publish/entities?size=10000',
+			'url': 'https://api.memento.live/publish/events?size=10000',
 			'dataSrc': ''
 		},
 		'columns': [
@@ -100,4 +100,4 @@ function entitiesCtrl($scope, COLORS) {
 
 angular
 	.module('urbanApp')
-	.controller('entitiesCtrl', ['$scope', 'COLORS', entitiesCtrl]);
+	.controller('eventsCtrl', ['$scope', 'COLORS', eventsCtrl]);

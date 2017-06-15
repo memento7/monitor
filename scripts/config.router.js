@@ -75,7 +75,8 @@ angular
 								{
 									insertBefore: '#load_styles_before',
 									files: [
-										'vendor/rickshaw/rickshaw.min.css'
+										'vendor/rickshaw/rickshaw.min.css',
+										'vendor/datatables/media/css/jquery.dataTables.css'
 									]
 								},
 								{
@@ -83,6 +84,9 @@ angular
 									files: [
 										'vendor/d3/d3.min.js',
 										'vendor/rickshaw/rickshaw.min.js',
+										'vendor/chosen_v1.4.0/chosen.jquery.min.js',
+										'vendor/datatables/media/js/jquery.dataTables.js',
+										'scripts/extentions/bootstrap-datatables.js'
 									]
 								}
 							]).then(function () {
@@ -98,6 +102,27 @@ angular
 				.state('app.events', {
 					url: '/events/',
 					templateUrl: 'views/events.html',
+					resolve: {
+						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+							return $ocLazyLoad.load([
+								{
+									insertBefore: '#load_styles_before',
+									files: [
+										'vendor/rickshaw/rickshaw.min.css'
+									]
+								},
+								{
+									serie: true,
+									files: [
+										'vendor/d3/d3.min.js',
+										'vendor/rickshaw/rickshaw.min.js',
+									]
+								}
+							]).then(function () {
+								return $ocLazyLoad.load('scripts/controllers/events.js');
+							});
+						}]
+					},
 					data: {
 						title: '이벤트 모니터링',
 					}
@@ -118,4 +143,9 @@ angular
 			debug: false,
 			events: false
 		});
+	}])
+	.config(['$httpProvider', function ($httpProvider) {
+		//$httpProvider.defaults.useXDomain = true;
+		//delete $httpProvider.defaults.headers.common['X-Requested-With'];
+		//$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 	}]);
