@@ -1,0 +1,79 @@
+<div data-ng-controller="entitiesDetailCtrl">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget bg-cyan">
+				<div class="widget-bg-icon">
+					<i class="fa fa-lemon-o"></i>
+				</div>
+				<div class="widget-details">
+					<div class="widget-details">
+						<h1 class="no-margin">#{{ entityId }}</h1>
+					</div>
+					<div class="widget-details">
+						<h3 style="margin: 5px 0 0 10px">{{ entityData.nickname }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget bg-white">
+				<div class="widget-details" ng-repeat="image in entityData.images">
+					<img src="{{ image.source_link }}" height="160">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="row">
+		<div class="col-md-3" ng-repeat="(roleid, role) in entityData.role_json">
+			<div class="panel panel-warning">
+				<div class="panel-heading border">
+					<h5 class="mb0 mt0">ROLE:: {{ roleid }}</h5>
+				</div>
+				<div class="panel-body">
+					<pre>
+					<code>{{ role }}</code>
+					</pre>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h4 class="mb0 mt0">연관 키워드</h4>
+				</div>
+				<div class="panel-body">
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h4 class="mb0 mt0">속한 이벤트</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>이벤트명</th>
+								<th>날짜</th>
+								<th>I.S.</th>
+								<th>발행 날짜</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

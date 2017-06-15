@@ -24,8 +24,6 @@ angular
 					abstract: true,
 					templateUrl: 'views/common/layout.html',
 				})
-
-
 				.state('app.dashboard', {
 					url: '/',
 					templateUrl: 'views/dashboard.html',
@@ -33,17 +31,8 @@ angular
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
 							return $ocLazyLoad.load([
 								{
-									insertBefore: '#load_styles_before',
-									files: [
-										'styles/climacons-font.css',
-										'vendor/rickshaw/rickshaw.min.css'
-									]
-								},
-								{
 									serie: true,
 									files: [
-										'vendor/d3/d3.min.js',
-										'vendor/rickshaw/rickshaw.min.js',
 										'vendor/flot/jquery.flot.js',
 										'vendor/flot/jquery.flot.resize.js',
 										'vendor/flot/jquery.flot.pie.js',
@@ -65,62 +54,36 @@ angular
 						title: '대시보드',
 					}
 				})
-
 				.state('app.entities', {
 					url: '/entities/',
 					templateUrl: 'views/entities.html',
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-							return $ocLazyLoad.load([
-								{
-									insertBefore: '#load_styles_before',
-									files: [
-										'vendor/rickshaw/rickshaw.min.css',
-										'vendor/datatables/media/css/jquery.dataTables.css'
-									]
-								},
-								{
-									serie: true,
-									files: [
-										'vendor/d3/d3.min.js',
-										'vendor/rickshaw/rickshaw.min.js',
-										'vendor/chosen_v1.4.0/chosen.jquery.min.js',
-										'vendor/datatables/media/js/jquery.dataTables.js',
-										'scripts/extentions/bootstrap-datatables.js'
-									]
-								}
-							]).then(function () {
-								return $ocLazyLoad.load('scripts/controllers/entities.js');
-							});
+							return $ocLazyLoad.load('scripts/controllers/entities.js');
 						}]
 					},
 					data: {
 						title: '엔티티 모니터링',
 					}
 				})
-
+				.state('app.entitiesDetail', {
+					url: '/entities/:entityId',
+					templateUrl: 'views/entities_detail.html',
+					resolve: {
+						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+							return $ocLazyLoad.load('scripts/controllers/entities_detail.js');
+						}]
+					},
+					data: {
+						title: '엔티티 모니터링',
+					}
+				})
 				.state('app.events', {
 					url: '/events/',
 					templateUrl: 'views/events.html',
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-							return $ocLazyLoad.load([
-								{
-									insertBefore: '#load_styles_before',
-									files: [
-										'vendor/rickshaw/rickshaw.min.css'
-									]
-								},
-								{
-									serie: true,
-									files: [
-										'vendor/d3/d3.min.js',
-										'vendor/rickshaw/rickshaw.min.js',
-									]
-								}
-							]).then(function () {
-								return $ocLazyLoad.load('scripts/controllers/events.js');
-							});
+							return $ocLazyLoad.load('scripts/controllers/events.js');
 						}]
 					},
 					data: {

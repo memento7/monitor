@@ -1,0 +1,4 @@
+@charset "utf-8";
+
+table a{ color: #337ab7 !important }
+table a:hover, table a:focus{ color: #23527c; }

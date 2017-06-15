@@ -48,6 +48,8 @@ var app = angular
 */
 
 
+var API_BASE = 'https://manage.memento.live/api';
+
 $.ajaxSetup({
 	beforeSend: function (xhr)
 	{

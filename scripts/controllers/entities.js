@@ -58,11 +58,17 @@ function entitiesCtrl($scope, COLORS) {
 
 	$scope.dataTableOpt = {
 		'ajax': {
-			'url': 'https://api.memento.live/publish/entities?size=10000',
+			'url': API_BASE + '/publish/entities?size=10000',
 			'dataSrc': ''
 		},
 		'columns': [
-			{'data': 'id'},
+			{
+				'data': 'id',
+				'render': function (data, type, full, meta) {
+					//console.log(data, type, full, meta);
+					return '<a href="#/entities/' + data + '">#' + data + '</a>';
+				},
+			},
 			{'data': 'nickname'},
 			{'data': 'realname'},
 			{
