@@ -1,0 +1,102 @@
+<div data-ng-controller="eventsDetailCtrl">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget bg-purple">
+				<div class="widget-bg-icon">
+					<i class="fa fa-lemon-o"></i>
+				</div>
+				<div class="widget-details">
+					<div class="widget-details">
+						<h1 class="no-margin">#{{ eventId }}</h1>
+					</div>
+					<div class="widget-details">
+						<h3 style="margin: 5px 0 0 10px">{{ eventData.title }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="mb0 mt0">연관 키워드</h4>
+				</div>
+				<div class="panel-body">
+					<table id="keyword-table" class="table display bordered table-striped table-condensed datatable">
+						<thead>
+							<tr>
+								<th>키워드</th>
+								<th>가중치</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in eventData.keywords">
+								<td>{{ item.keyword }}</td>
+								<td>{{ item.weight }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-7">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="mb0 mt0">관련 엔티티</h4>
+				</div>
+				<div class="panel-body">
+					<table id="entities-table" class="table display bordered table-striped table-condensed datatable">
+						<thead>
+							<tr>
+								<th>엔티티</th>
+								<th>확률</th>
+								<th>포함 여부</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="entity in eventData.entities">
+								<td>
+									<a ng-href="#/entities/{{ entity.id }}">
+										#{{ entity.id }}({{ entity.nickname }})
+									</a
+								</td>
+								<td>??</td>
+								<td>O</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="mb0 mt0">관련 기사</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered bordered table-striped table-condensed datatable">
+						<thead>
+							<tr>
+								<th>기사 제목</th>
+								<th>유사도</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="article in eventData.event_articles">
+								<td>{{ article.title }}</td>
+								<td>??</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

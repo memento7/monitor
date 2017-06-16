@@ -65,7 +65,6 @@ function entitiesCtrl($scope, COLORS) {
 			{
 				'data': 'id',
 				'render': function (data, type, full, meta) {
-					//console.log(data, type, full, meta);
 					return '<a href="#/entities/' + data + '">#' + data + '</a>';
 				},
 			},

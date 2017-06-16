@@ -27,14 +27,14 @@
 				<span>대시보드</span>
 			</a>
 
-		 <li ui-sref-active="active">
+		 <li ui-sref-active="active" ng-class="{'active': $state.current.name == 'app.entitiesDetail'}">
 			<a href="#/entities/" ui-sref="app.entities">
 				<i class="fa fa-address-book-o"></i>
 				<span>엔티티</span>
 			</a>
 		</li>
 
-		<li ui-sref-active="active">
+		<li ui-sref-active="active" ng-class="{'active': $state.current.name == 'app.eventsDetail'}">
 			<a href="#/events/" ui-sref="app.events">
 				<i class="fa fa-calendar"></i>
 				<span>이벤트</span>

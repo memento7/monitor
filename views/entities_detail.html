@@ -22,7 +22,7 @@
 		<div class="col-md-12">
 			<div class="widget bg-white">
 				<div class="widget-details" ng-repeat="image in entityData.images">
-					<img src="{{ image.source_link }}" height="160">
+					<img ng-src="{{ image.source_link }}" height="160">
 				</div>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 					<h4 class="mb0 mt0">속한 이벤트</h4>
 				</div>
 				<div class="panel-body">
-					<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+					<table id="event-table" class="table display bordered table-striped table-condensed datatable">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -71,6 +71,17 @@
 								<th>발행 날짜</th>
 							</tr>
 						</thead>
+						<tbody>
+							<tr ng-repeat="event in entityData.events">
+								<td>
+									<a ng-href="#/events/{{ event.id }}">#{{ event.id }}</a>
+								</td>
+								<td>{{ event.title }}</td>
+								<td>{{ event.date }}</td>
+								<td>{{ event.issue_data.issue_score }}</td>
+								<td>{{ event.published_time ? event.published_time : 'Not yet' }}</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>

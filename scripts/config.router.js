@@ -90,6 +90,18 @@ angular
 						title: '이벤트 모니터링',
 					}
 				})
+				.state('app.eventsDetail', {
+					url: '/events/:eventId',
+					templateUrl: 'views/events_detail.html',
+					resolve: {
+						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+							return $ocLazyLoad.load('scripts/controllers/events_detail.js');
+						}]
+					},
+					data: {
+						title: '이벤트 모니터링',
+					}
+				})
 
 				.state('app.instances', {
 					url: '/instances/',
