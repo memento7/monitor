@@ -1,33 +1,45 @@
 <div data-ng-controller="entitiesDetailCtrl">
 	
 	<div class="row">
-		<div class="col-md-12">
-			<div class="widget bg-cyan">
-				<div class="widget-bg-icon">
-					<i class="fa fa-lemon-o"></i>
-				</div>
-				<div class="widget-details">
-					<div class="widget-details">
-						<h1 class="no-margin">#{{ entityId }}</h1>
-					</div>
-					<div class="widget-details">
-						<h3 style="margin: 5px 0 0 10px">{{ entityData.nickname }}</h3>
-					</div>
-				</div>
-			</div>
+		<div class="col-xs-12">
+			<h1>
+				<a href="#/entities/">
+					<i class="fa fa-angle-left" aria-hidden="true"></i>
+				</a>
+				<span>{{ entityData.nickname }} (#{{ entityId }})</span>
+			</h1>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
-			<div class="widget bg-white">
-				<div class="widget-details" ng-repeat="image in entityData.images">
-					<img ng-src="{{ image.source_link }}" height="160">
+		<div class="col-xs-4">
+			<div class="panel">
+				<div class="panel-heading border">
+					이벤트 추이
+				</div>
+				<div class="panel-body">
+					<rickshaw class="rickshaw_graph" rickshaw-features="features_trends" rickshaw-options="options_trends" rickshaw-series="series_trends"></rickshaw>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<div class="panel">
+				<div class="panel-heading border">
+					사진
+				</div>
+				<div class="panel-body">
+					<div class="gallery">
+						<div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="image in entityData.images">
+							<a ng-href="{{ image.source_link }}" data-gallery="">
+								<img ng-src="{{ image.source_link }}" width="100%">
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<!-- <div class="row">
 		<div class="col-md-3" ng-repeat="(roleid, role) in entityData.role_json">
 			<div class="panel panel-warning">
@@ -45,7 +57,7 @@
 
 	<div class="row">
 		<div class="col-md-4">
-			<div class="panel panel-success">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h4 class="mb0 mt0">연관 키워드</h4>
 				</div>
@@ -56,7 +68,7 @@
 		</div>
 
 		<div class="col-md-8">
-			<div class="panel panel-success">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h4 class="mb0 mt0">속한 이벤트</h4>
 				</div>
@@ -83,6 +95,41 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+	<div id="blueimp-gallery" class="blueimp-gallery">
+		<!-- The container for the modal slides -->
+		<div class="slides"></div>
+		<!-- Controls for the borderless lightbox -->
+		<h3 class="title"></h3>
+		<a class="prev">‹</a>
+		<a class="next">›</a>
+		<a class="close">×</a>
+		<a class="play-pause"></a>
+		<ol class="indicator"></ol>
+		<!-- The modal dialog, which will be used to wrap the lightbox content -->
+		<div class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" aria-hidden="true">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body next"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left prev">
+							<i class="fa fa-chevron-left"></i> Previous
+						</button>
+						<button type="button" class="btn btn-primary next">
+							Next
+							<i class="fa fa-chevron-right"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

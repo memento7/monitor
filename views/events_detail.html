@@ -1,20 +1,13 @@
 <div data-ng-controller="eventsDetailCtrl">
 	
 	<div class="row">
-		<div class="col-md-12">
-			<div class="widget bg-purple">
-				<div class="widget-bg-icon">
-					<i class="fa fa-lemon-o"></i>
-				</div>
-				<div class="widget-details">
-					<div class="widget-details">
-						<h1 class="no-margin">#{{ eventId }}</h1>
-					</div>
-					<div class="widget-details">
-						<h3 style="margin: 5px 0 0 10px">{{ eventData.title }}</h3>
-					</div>
-				</div>
-			</div>
+		<div class="col-xs-12">
+			<h1>
+				<a href="#/events/">
+					<i class="fa fa-angle-left" aria-hidden="true"></i>
+				</a>
+				<span>{{ eventData.title }} (#{{ eventId }})</span>
+			</h1>
 		</div>
 	</div>
 
@@ -62,7 +55,7 @@
 								<td>
 									<a ng-href="#/entities/{{ entity.id }}">
 										#{{ entity.id }}({{ entity.nickname }})
-									</a
+									</a>
 								</td>
 								<td>??</td>
 								<td>O</td>
@@ -81,7 +74,7 @@
 					<h4 class="mb0 mt0">관련 기사</h4>
 				</div>
 				<div class="panel-body">
-					<table class="table table-bordered bordered table-striped table-condensed datatable">
+					<table class="table display bordered table-striped table-condensed datatable">
 						<thead>
 							<tr>
 								<th>기사 제목</th>

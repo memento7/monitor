@@ -1,11 +1,29 @@
 @charset "utf-8";
+@import url(https://assets.memento.live/css/nanumbarungothic.css);
+
+html,body{
+	font-family: 'Nanum Barun Gothic',sans-serif;
+}
+
+h1{
+	margin: 5px 0 20px;
+	color: black;
+	font-weight: 200;
+}
+
+h1 .fa-angle-left{ color: #337ab7; margin-right: 10px }
 
 table a{ color: #337ab7 !important }
 table a:hover, table a:focus{ color: #23527c; }
 
-
 .table-striped > tbody > tr:nth-child(even) { background-color: white }
-
 table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after, table.dataTable thead .sorting_asc_disabled::after, table.dataTable thead .sorting_desc_disabled::after{
 	display: none;
+}
+
+
+.gallery a img{
+	height: 126px;
+	object-fit: cover;
+	object-position: 50% 20%;
 }

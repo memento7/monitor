@@ -1,8 +1,10 @@
 'use strict';
 
-function eventsDetailCtrl($scope, $stateParams) {
+function eventsDetailCtrl($scope, $state, $stateParams) {
 	var eventId = $stateParams.eventId;
 	$scope.eventId = eventId;
+
+	$state.current.data.title = '이벤트 #' + eventId;
 
 	$.get(API_BASE + '/publish/events/' + eventId, function (result) {
 		console.log(result);
@@ -21,4 +23,4 @@ function eventsDetailCtrl($scope, $stateParams) {
 
 angular
 	.module('urbanApp')
-	.controller('eventsDetailCtrl', ['$scope', '$stateParams', eventsDetailCtrl]);
+	.controller('eventsDetailCtrl', ['$scope', '$state', '$stateParams', eventsDetailCtrl]);
