@@ -47,6 +47,30 @@ function entitiesDetailCtrl($scope, $state, $stateParams, COLORS) {
 		$scope.$apply();
 	});
 
+
+	$.ajax(ES_BASE + '/memento/entities/_search', {
+		method: 'POST',
+		crossDomain: true,
+		data: {
+			"query": {
+				"match": {
+					"eid": entityId
+				}
+			}
+		},
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function (result) {
+			console.log(result);
+
+			var flag = result.hits.hits[0]['_source']['flag'];
+
+			$.get(ES_BASE + '/memento/namugrim/' + flag, function (result2) {
+				console.log(result2);
+			});
+		}
+	});
+
 	$scope.options_trends = {
 		renderer: 'area',
 		name: 'Area'
