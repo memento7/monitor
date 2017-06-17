@@ -17,6 +17,7 @@ function eventsCtrl($scope, COLORS) {
 		}
 	};
 
+
 	$scope.series1 = [{
 		color: COLORS.primary,
 		name: 'Series1',
@@ -56,45 +57,24 @@ function eventsCtrl($scope, COLORS) {
 				}]
 		}];
 
-	$scope.dataTableOpt = {
-		'ajax': {
-			'url': 'https://api.memento.live/publish/events?size=10000',
-			'dataSrc': ''
-		},
-		'columns': [
-			{'data': 'id'},
-			{'data': 'nickname'},
-			{'data': 'realname'},
-			{
-				'data': function (target) {
-					var roles = [];
-					for (var role in target.role_json) {
-						roles.push(role);
-					}
-					return roles.join(',');
-				}
-			},
-			{'data': 'status'},
-			{'data': 'created_time'},
-			//{'data': 'updated_time'}
-			{
-				'data': function (target) {
-					if (target.updated_time)
-						return target.updated_time;
-					else
-						return 'Not yet';
-				}
-			},
-		]
-	};
+	$scope.eventDateRange = '2000-01-01 - 2017-06-30';
+	$scope.$watch('eventDateRange', function (newVal, oldVal) {
+		var tmp = newVal.split(" - ");
+		var start = tmp[0];
+		var end = tmp[1];
 
-	$scope.$watch($scope.getWidth, function () {
-		$scope.options1 = {
-			renderer: 'area'
-		};
-		$scope.options2 = {
-			renderer: 'area'
-		};
+		console.log(start + " ~ " + end)
+	});
+
+
+	$.get(API_BASE + '/publish/events/updated', function (result) {
+		$scope.events = result;
+		$scope.$apply();
+
+		$('#events-table').DataTable({
+			"order": [[ 4, "desc" ]]
+		});
+
 	});
 }
 

@@ -10,6 +10,7 @@ function entitiesDetailCtrl($scope, $state, $stateParams, COLORS) {
 		//console.log(result);
 		$scope.entityData = result;
 		$scope.entityData.images.sort( function (a,b) { return a.like_count - b.like_count } );
+		$scope.entityData.images = $scope.entityData.images.slice(0, 8);
 
 		$scope.$apply();
 
