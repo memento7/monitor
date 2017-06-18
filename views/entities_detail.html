@@ -63,6 +63,20 @@
 				</div>
 				<div class="panel-body">
 					
+					<table id="keyword-table" class="table display bordered table-striped table-condensed datatable">
+                                                <thead>
+                                                        <tr>
+                                                                <th>키워드</th>
+                                                                <th>가중치</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr ng-repeat="tag in tags">
+                                                                <td>{{ tag.tag }}</td>
+                                                                <td>{{ tag.value }}</td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
 				</div>
 			</div>
 		</div>

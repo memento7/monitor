@@ -47,17 +47,17 @@ function entitiesDetailCtrl($scope, $state, $stateParams, COLORS) {
 		$scope.$apply();
 	});
 
-
+	var data = {
+                        "query": {
+                                "match": {
+                                        "eid": entityId
+                                }
+                   }
+        };
 	$.ajax(ES_BASE + '/memento/entities/_search', {
 		method: 'POST',
 		crossDomain: true,
-		data: {
-			"query": {
-				"match": {
-					"eid": entityId
-				}
-			}
-		},
+		data: JSON.stringify(data),
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (result) {
@@ -67,6 +67,13 @@ function entitiesDetailCtrl($scope, $state, $stateParams, COLORS) {
 
 			$.get(ES_BASE + '/memento/namugrim/' + flag, function (result2) {
 				console.log(result2);
+				$scope.tags = result2._source.tags.slice(0, 100);
+				//tags = tags.sort(function(a, b) { return a })
+				$scope.$apply();
+
+				$('#keyword-table').DataTable({
+                    		 	"order": [[ 1, "desc" ]]
+                		});
 			});
 		}
 	});

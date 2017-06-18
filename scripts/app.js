@@ -49,7 +49,7 @@ var app = angular
 
 
 var API_BASE = 'https://manage.memento.live/api';
-var ES_BASE = 'http://server2.memento.live:9200';
+var ES_BASE = 'https://es.memento.live';
 
 $.ajaxSetup({
 	beforeSend: function (xhr, settings) {
