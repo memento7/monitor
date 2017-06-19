@@ -1,81 +1,78 @@
 'use strict';
 
 function eventsCtrl($scope, COLORS) {
-	$scope.options1 = {
-		renderer: 'area'
+	
+	$scope.options_trends = {
+		renderer: 'area',
+		name: 'Area'
 	};
 
-	$scope.features1 = {
-		xAxis: true,
+	$scope.features_trends = {
+		yAxis: true,
 		hover: {
 			xFormatter: function (x) {
-				return new Date(x * 1000).toString();
+				return new Date(x).toLocaleString();
 			},
 			yFormatter: function (y) {
 				return Math.round(y);
 			}
 		}
 	};
-
-
-	$scope.series1 = [{
+	$scope.series_trends = [{
 		color: COLORS.primary,
-		name: 'Series1',
-		data: [{
-			x: -1893456000,
-			y: 92228531
-				}, {
-			x: -1577923200,
-			y: 106021568
-				}, {
-			x: -1262304000,
-			y: 123202660
-				}, {
-			x: -946771200,
-			y: 132165129
-				}, {
-			x: -631152000,
-			y: 151325798
-				}, {
-			x: -315619200,
-			y: 179323175
-				}, {
-			x: 0,
-			y: 203211926
-				}, {
-			x: 315532800,
-			y: 226545805
-				}, {
-			x: 631152000,
-			y: 248709873
-				}, {
-			x: 946684800,
-			y: 281421906
-				}, {
-			x: 1262304000,
-			y: 308745538
-				}]
+		name: '이벤트 수',
+		data: []
+	}];
+
+	$.get(API_BASE + '/publish/events/count/date?recentDays=1300', function (result) {
+		var graphData = [];
+		
+		for (var datetime in result) {
+			graphData.push({
+				'x': (new Date(datetime)).getTime(),
+				'y': result[datetime]
+			})
+		}
+		graphData.sort(function(a, b) { return a.x - b.x });
+	
+		$scope.series_trends = [{
+			color: COLORS.primary,
+			name: '이벤트 수',
+			data: graphData
 		}];
 
-	$scope.eventDateRange = '2000-01-01 - 2017-06-30';
+		$scope.$apply();
+	});
+	
+	var now = new Date();
+	var day7ago = new Date(now.getTime());
+	day7ago.setDate(now.getDate() - 7);
+
+	$scope.eventDateRange = day7ago.toISOString().split("T")[0] + ' - ' + now.toISOString().split("T")[0];
 	$scope.$watch('eventDateRange', function (newVal, oldVal) {
 		var tmp = newVal.split(" - ");
 		var start = tmp[0];
 		var end = tmp[1];
 
-		console.log(start + " ~ " + end)
+		console.log(start + " ~ " + end);
+		loadEvents(start, end)
 	});
+	
+	var eventsTable;
+	function loadEvents(startDate, endDate) {
+		$.get(API_BASE + '/publish/events/between?fromDate='+startDate+'&toDate='+endDate + '&size=1000', function (result) {
+			if (eventsTable)
+				eventsTable.destroy();			
 
+			$scope.events = result;
+			$scope.$apply();
+			
+			eventsTable = $('#events-table').DataTable({
+				"order": [[ 4, "desc" ]]
+			});
 
-	$.get(API_BASE + '/publish/events/updated', function (result) {
-		$scope.events = result;
-		$scope.$apply();
-
-		$('#events-table').DataTable({
-			"order": [[ 4, "desc" ]]
 		});
-
-	});
+	}
 }
 
 angular

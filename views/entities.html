@@ -6,7 +6,7 @@
 					엔티티 현황
 				</div>
 				<div class="panel-body">
-					<rickshaw class="rickshaw_graph" rickshaw-options="options1" rickshaw-features="features1" rickshaw-series="series1"></rickshaw>
+					<rickshaw class="rickshaw_graph" rickshaw-features="features_trends" rickshaw-options="options_trends" rickshaw-series="series_trends"></rickshaw>
 				</div>
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 					엔티티 목록
 				</div>
 				<div class="panel-body">
-					<table class="table display bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+					<table id="entities-table" class="table display bordered table-striped table-condensed datatable">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -44,10 +44,27 @@
 								<th>본명</th>
 								<th>역할</th>
 								<th>상태</th>
+								<th>트렌드 스코어</th>
 								<th>생성 날짜</th>
 								<th>업데이트 날짜</th>
 							</tr>
 						</thead>
+						<tbody>
+							<tr ng-repeat="entity in entities">
+								<td>
+									<a ng-href="#/entities/{{ entity.id }}">#{{ entity.id }}</a>
+								</td>
+								<td>{{ entity.nickname }}</td>
+								<td>{{ entity.realname }}</td>
+								<td>
+									<span ng-repeat="(roleid, role) in entity.role_json">{{ roleid }}&nbsp;</span>
+								</td>
+								<td>{{ entity.status }}</td>
+								<td>{{ entity.trend_score }}({{ entity.trend_score_delta }})</td>
+								<td>{{ entity.created_time ? entity.created_time : 'Not yet' }}</td>
+								<td>{{ entity.updated_time ? entity.updated_time : 'Not yet' }}</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
