@@ -106,6 +106,24 @@ angular
 				.state('app.instances', {
 					url: '/instances/',
 					templateUrl: 'views/instances.html',
+					resolve: {
+						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+							return $ocLazyLoad.load('scripts/controllers/instances.js');
+						}]
+					},
+					data: {
+						title: '인스턴스 모니터링',
+					}
+				})
+
+				.state('app.instancesDetail', {
+					url: '/instances/:instanceId',
+					templateUrl: 'views/instances_detail.html',
+					resolve: {
+						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+							return $ocLazyLoad.load('scripts/controllers/instances_detail.js');
+						}]
+					},
 					data: {
 						title: '인스턴스 모니터링',
 					}

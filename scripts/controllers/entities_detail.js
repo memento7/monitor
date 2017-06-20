@@ -48,12 +48,12 @@ function entitiesDetailCtrl($scope, $state, $stateParams, COLORS) {
 	});
 
 	var data = {
-                        "query": {
-                                "match": {
-                                        "eid": entityId
-                                }
-                   }
-        };
+		"query": {
+			"match": {
+				"eid": entityId
+			}
+		}
+	};
 	$.ajax(ES_BASE + '/memento/entities/_search', {
 		method: 'POST',
 		crossDomain: true,
