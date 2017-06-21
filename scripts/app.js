@@ -58,7 +58,7 @@ $.ajaxSetup({
 		if (settings.url.indexOf(API_BASE) == 0)
 			xhr.setRequestHeader("Authorization", 'Basic ' + security.BASIC_AUTH_KEY);
 		else if (settings.url.indexOf(JOBAPI_BASE) == 0) {
-			xhr.setRequestHeader("Authorization", 'Basic ' + "bWVtZW50bzptZW1lbnRv");
+			xhr.setRequestHeader("Authorization", 'Basic ' + security.BASIC_AUTH_KEY);
 		}
 		else if (settings.url.indexOf(ES_BASE) == 0) {
 			xhr.setRequestHeader("Authorization", 'Basic ' + security.ES_BASIC_AUTH_KEY);
