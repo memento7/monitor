@@ -24,8 +24,6 @@ function jobsDetailCtrl($scope, $state, $stateParams, COLORS) {
 		});
 	}
 
-	
-
 	function extractParameter(job) {
 		if(job.metadata.error != undefined)
 			return job.metadata.error;
@@ -33,10 +31,10 @@ function jobsDetailCtrl($scope, $state, $stateParams, COLORS) {
 			return job.metadata.command_param.command;
 		} else if(job.type == "MementoCrawlTask") {
 			var param = job.metadata.memento_crawl_param;
-			return param.entity + ", " + param.fromDate + "~" + param.toDate + ", " + param.elasticJobId;
+			return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 		} else if(job.type == "MementoClusterTask") {
 			var param = job.metadata.memento_cluster_param;
-			return param.entity + ", " + param.fromDate + "~" + param.toDate + ", " + param.elasticJobId;
+			return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 		}
 	}
 }
