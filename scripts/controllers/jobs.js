@@ -56,7 +56,10 @@ function jobsCtrl($scope, COLORS, $interval) {
 
 				if(jobTable)
 					jobTable.destroy();
-				$scope.jobutilization = parseInt(sumOfJobCount / sumOfMaxJobCount * 100) + "%";
+				$scope.jobutilization = parseInt(sumOfJobCount / sumOfMaxJobCount * 100);
+				if(isNaN($scope.jobutilization))
+					$scope.jobutilization = 0;
+				$scope.jobutilization += "%";
 				$scope.$apply();
 
 				jobTable = $('#job-table').DataTable({

@@ -112,7 +112,7 @@ angular
 						}]
 					},
 					data: {
-						title: '잡 모니터링',
+						title: '작업 모니터링',
 					}
 				})
 
