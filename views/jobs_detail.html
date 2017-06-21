@@ -68,13 +68,13 @@
 						<div class="form-group"> 
 							<label class="col-sm-2 control-label">출력로그</label> 
 							<div class="col-sm-10"> 
-								<p class="form-control-static"> {{ job.metadata.result.stdout }} </p> 
+								<pre class="form-control-static" style="white-space: pre-wrap;"> {{ job.metadata.result.stdout }} </pre> 
 							</div>
 						</div> 
 						<div class="form-group"> 
 							<label class="col-sm-2 control-label">에러로그</label> 
 							<div class="col-sm-10"> 
-								<p class="form-control-static"> {{ job.metadata.error }} </p> 
+								<pre class="form-control-static" style="white-space: pre-wrap;"> {{ job.metadata.error }} </pre> 
 							</div>
 						</div> 
 					</form> 
