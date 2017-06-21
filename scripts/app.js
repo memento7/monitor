@@ -49,8 +49,7 @@ var app = angular
 
 
 var API_BASE = 'https://manage.memento.live/api';
-// var JOBAPI_BASE = 'https://server1.memento.live:7443/api';
-var JOBAPI_BASE = 'https://local.memento.live:7443/api';
+var JOBAPI_BASE = 'https://manage.memento.live:7443/api';
 var ES_BASE = 'https://es.memento.live';
 
 $.ajaxSetup({
