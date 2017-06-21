@@ -49,6 +49,8 @@ var app = angular
 
 
 var API_BASE = 'https://manage.memento.live/api';
+// var JOBAPI_BASE = 'https://server1.memento.live:7443/api';
+var JOBAPI_BASE = 'https://local.memento.live:7443/api';
 var ES_BASE = 'https://es.memento.live';
 
 $.ajaxSetup({
@@ -56,7 +58,9 @@ $.ajaxSetup({
 		//xhr.setRequestHeader("Accept","application/vvv.website+json;version=1");
 		if (settings.url.indexOf(API_BASE) == 0)
 			xhr.setRequestHeader("Authorization", 'Basic ' + security.BASIC_AUTH_KEY);
-
+		else if (settings.url.indexOf(JOBAPI_BASE) == 0) {
+			xhr.setRequestHeader("Authorization", 'Basic ' + "bWVtZW50bzptZW1lbnRv");
+		}
 		else if (settings.url.indexOf(ES_BASE) == 0) {
 			xhr.setRequestHeader("Authorization", 'Basic ' + security.ES_BASIC_AUTH_KEY);
 			xhr.withCredentials = true;

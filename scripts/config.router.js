@@ -103,29 +103,32 @@ angular
 					}
 				})
 
-				.state('app.instances', {
-					url: '/instances/',
-					templateUrl: 'views/instances.html',
+				.state('app.jobs', {
+					url: '/jobs/',
+					templateUrl: 'views/jobs.html',
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-							return $ocLazyLoad.load('scripts/controllers/instances.js');
+							return $ocLazyLoad.load('scripts/controllers/jobs.js');
 						}]
 					},
 					data: {
-						title: '인스턴스 모니터링',
+						title: '잡 모니터링',
 					}
 				})
 
-				.state('app.instancesDetail', {
-					url: '/instances/:instanceId',
-					templateUrl: 'views/instances_detail.html',
+				.state('app.jobsDetail', {
+					url: '/jobs/:jobId?isHistory',
+					templateUrl: 'views/jobs_detail.html',
+					controller: function($scope, $stateParams) {
+						$scope.isHistory = $stateParams.isHistory;
+					},					
 					resolve: {
 						deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-							return $ocLazyLoad.load('scripts/controllers/instances_detail.js');
+							return $ocLazyLoad.load('scripts/controllers/jobs_detail.js');
 						}]
 					},
 					data: {
-						title: '인스턴스 모니터링',
+						title: '작업 모니터링',
 					}
 				})
 		}
