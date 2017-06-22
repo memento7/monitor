@@ -51,7 +51,7 @@ function dashboardCtrl($scope, COLORS, $interval) {
 	};
 
 	
-	$.get(API_BASE + '/publish/entities?createdTime,desc&size=10000', function (result) {
+	$.get(API_BASE + '/publish/entities?createdTime,desc&size=10000&fillTrendScore=false', function (result) {
 		var graphData = [];
 
 		for (var i = 0; i < result.length; i++) {
@@ -100,51 +100,63 @@ function dashboardCtrl($scope, COLORS, $interval) {
 
 	if(getJobDataTimer)
 		$interval.cancel(getJobDataTimer);
-	getJobDataTimer = $interval((getJobData = function() {
-		$.get(JOBAPI_BASE + '/jobs', function (result) {
-			// console.log(result);
-			$scope.jobs = result;
-			$scope.jobs = $scope.jobs.filter(function(job) {
-				return job.type != "JobTask";
-			});
-			var count = {"WAITING": 0, "RUNNING": 0};
-			$.each($scope.jobs, function(index){
-				var job = $scope.jobs[index];
-				if(count[job.status] != undefined)
-					count[job.status]++;
-				var parameter = extractParameter(job);
-				job.parameter = parameter;
-				if(job.metadata["command_param"] != undefined) {
-					var serverId = job.metadata["command_param"].serverId;
-					if(serverId != undefined) {
-						if($scope.jobserversMap[serverId]["current_job_count"] == undefined)
-							$scope.jobserversMap[serverId]["current_job_count"] = 0;
-						$scope.jobserversMap[serverId]["current_job_count"]++;	
+		getJobDataTimer = $interval((getJobData = function() {
+			$.get(JOBAPI_BASE + '/jobservers', function (result) {
+				// console.log(result);
+				$scope.jobservers = result;
+				$scope.jobserversMap = {};
+
+				$.each(result, function(index){
+					var jobserver = result[index];
+					$scope.jobserversMap[jobserver.id] = jobserver;
+					jobserver["current_job_count"] = 0;
+				});
+
+				$.get(JOBAPI_BASE + '/jobs', function (result) {
+				// console.log(result);
+				$scope.jobs = result;
+				$scope.jobs = $scope.jobs.filter(function(job) {
+					return job.type != "JobTask";
+				});
+				var count = {"WAITING": 0, "RUNNING": 0};
+				$.each($scope.jobs, function(index){
+					var job = $scope.jobs[index];
+					if(count[job.status] != undefined)
+						count[job.status]++;
+					var parameter = extractParameter(job);
+					job.parameter = parameter;
+					if(job.metadata["command_param"] != undefined) {
+						var serverId = job.metadata["command_param"].serverId;
+						if(serverId != undefined) {
+							if($scope.jobserversMap[serverId]["current_job_count"] == undefined)
+								$scope.jobserversMap[serverId]["current_job_count"] = 0;
+							$scope.jobserversMap[serverId]["current_job_count"]++;	
+						}
 					}
-				}
-			});
-			$scope.jobcount = count;
-			var sumOfMaxJobCount = 0;
-			var sumOfJobCount = 0;
-			
-			$scope.jobservers.forEach(function(jobserver){
-				sumOfMaxJobCount += jobserver.max_job_count;
-				sumOfJobCount += jobserver["current_job_count"];
-			});
+				});
+				$scope.jobcount = count;
+				var sumOfMaxJobCount = 0;
+				var sumOfJobCount = 0;
+				
+				$scope.jobservers.forEach(function(jobserver){
+					sumOfMaxJobCount += jobserver.max_job_count;
+					sumOfJobCount += jobserver["current_job_count"];
+				});
 
-			if(jobTable)
-				jobTable.destroy();
-			$scope.jobutilization = parseInt(sumOfJobCount / sumOfMaxJobCount * 100);
-			if(isNaN($scope.jobutilization))
-				$scope.jobutilization = 0;
-			$scope.jobutilization += "%";
-			$scope.$apply();
+				if(jobTable)
+					jobTable.destroy();
+				$scope.jobutilization = parseInt(sumOfJobCount / sumOfMaxJobCount * 100);
+				if(isNaN($scope.jobutilization))
+					$scope.jobutilization = 0;
+				$scope.jobutilization += "%";
+				$scope.$apply();
 
-			jobTable = $('#job-table').DataTable({
-				"order": [[ 0, "asc" ]]
+				jobTable = $('#job-table').DataTable({
+					"order": [[ 0, "asc" ]]
+				});
 			});
 		});
-
+		
 		function extractParameter(job) {
 			if(job.metadata.error != undefined)
 				return job.metadata.error;
