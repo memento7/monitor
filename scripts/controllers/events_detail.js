@@ -25,7 +25,7 @@ function eventsDetailCtrl($scope, $state, $stateParams) {
 			});
 		}
 
-		$.get("http://server2.memento.live:6023/accuracy/" + eventId, function(result) {
+		$.get("https://ek.memento.live/accuracy/" + eventId, function(result) {
 			$.each(result, function(index) {
 				var obj = result[index];
 				if(entitiesMap[obj.entity]) {
