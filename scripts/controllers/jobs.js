@@ -1,6 +1,6 @@
 'use strict';
 var jobServerTable, jobHistoryTable, jobTable;
-var getData, getDataTimer;	
+var getData, getDataTimer;
 function jobsCtrl($scope, COLORS, $interval) {
 	
 	if(getDataTimer)
@@ -101,7 +101,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 				return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 			}
 		}	
-	}), 10000);
+	}), 3500);
 	getData();
 }
 

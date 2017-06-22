@@ -78,13 +78,15 @@
 						<thead>
 							<tr>
 								<th>기사 제목</th>
-								<th>유사도</th>
+								<th>덧글 수</th>
+								<th>원본 링크</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="article in eventData.event_articles">
 								<td>{{ article.title }}</td>
-								<td>??</td>
+								<td>{{ article.comment_count }}</td>
+								<td>{{ article.source_url }}</td>
 							</tr>
 						</tbody>
 					</table>

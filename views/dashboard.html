@@ -1,37 +1,93 @@
 <div data-ng-controller="dashboardCtrl">
 	<div class="row">
 		<div class="col-xs-6">
-			<div class="row mb25">
-				<div class="col-xs-12">
-					<div class="panel">
-						<div class="panel-heading border">
-							엔티티 현황
-						</div>
-						<div class="panel-body">
-							<rickshaw class="rickshaw_graph" rickshaw-features="entitiesTrend.features" rickshaw-options="entitiesTrend.options" rickshaw-series="entitiesTrend.series"></rickshaw>
-						</div>
-					</div>
+			<div class="panel">
+				<div class="panel-heading border">
+					엔티티 현황
 				</div>
-				
-				<div class="col-xs-12">
-					<div class="panel">
-						<div class="panel-heading border">
-							이벤트 현황
-						</div>
-						<div class="panel-body">
-							<rickshaw class="rickshaw_graph" rickshaw-features="eventsTrend.features" rickshaw-options="eventsTrend.options" rickshaw-series="eventsTrend.series"></rickshaw>
- 
-						</div>
-					</div>
+				<div class="panel-body">
+					<rickshaw class="rickshaw_graph" rickshaw-features="entitiesTrend.features" rickshaw-options="entitiesTrend.options" rickshaw-series="entitiesTrend.series"></rickshaw>
 				</div>
 			</div>
 		</div>
+		
 		<div class="col-xs-6">
-			<div class="panel-heading border">
-				인스턴스
+			<div class="panel">
+				<div class="panel-heading border">
+					이벤트 현황
+				</div>
+				<div class="panel-body">
+					<rickshaw class="rickshaw_graph" rickshaw-features="eventsTrend.features" rickshaw-options="eventsTrend.options" rickshaw-series="eventsTrend.series"></rickshaw>
+
+				</div>
 			</div>
-			<div class="panel-body">
-				실행중인 인스턴스가 없습니다
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-heading border">
+					인스턴스
+				</div>
+				<div class="panel-body">
+					<div class="row"> 
+						<div class="col-sm-8 col-md-4"> 
+							<div class="widget bg-white"> 
+								<div class="widget-icon bg-blue pull-left fa fa-spinner">
+								</div> 
+								<div class="overflow-hidden"> 
+									<span class="widget-title">{{ jobcount["WAITING"] }} </span> 
+									<span class="widget-subtitle"> 대기중</span> 
+								</div> 
+							</div>
+						</div> 
+						<div class="col-sm-8 col-md-4"> 
+							<div class="widget bg-white"> 
+								<div class="widget-icon bg-blue pull-left fa fa-play">
+								</div> 
+								<div class="overflow-hidden"> 
+									<span class="widget-title">{{ jobcount["RUNNING"] }} </span> 
+									<span class="widget-subtitle">실행중</span> 
+								</div> 
+							</div>
+						</div> 
+
+
+						<div class="col-sm-8 col-md-4"> 
+							<div class="widget bg-white"> 
+								<div class="widget-icon bg-blue pull-left fa fa-circle-o-notch">
+								</div> 
+								<div class="overflow-hidden"> 
+									<span class="widget-title">{{ jobutilization }} </span> 
+									<span class="widget-subtitle">사용률</span> 
+								</div> 
+							</div>
+						</div> 
+					</div>
+
+					<table id="job-table" class="table display bordered table-striped table-condensed datatable" >
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>타입</th>
+								<th>파라메터</th>
+								<th>순서</th>
+								<th>시작시간</th>
+								<th>상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="job in jobs">
+								<td><a ng-href="#/jobs/{{ job.id }}">#{{ job.id }}</a></td>
+								<td>{{ job.type }}</td>
+								<td>{{ job.parameter }}</td>
+								<td>{{ job.order_index }}</td>
+								<td>{{ job.start_time }}</td>
+								<td>{{ job.status }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
