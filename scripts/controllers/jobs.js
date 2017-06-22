@@ -6,7 +6,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 	if(getDataTimer)
 		$interval.cancel(getDataTimer);
 	getDataTimer = $interval((getData = function() {
-		$.get(JOBAPI_BASE + '/jobservers', function (result) {
+		$.get(JOBAPI_BASE + '/jobservers?size=1000', function (result) {
 			// console.log(result);
 			$scope.jobservers = result;
 			$scope.jobserversMap = {};
@@ -68,7 +68,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 			});
 		});
 
-		$.get(JOBAPI_BASE + '/jobs/histories', function (result) {
+		$.get(JOBAPI_BASE + '/jobs/histories?size=10000', function (result) {
 			// console.log(result);
 			$scope.jobhistories = result;
 			$scope.jobhistories = $scope.jobhistories.filter(function(job) {

@@ -53,9 +53,8 @@
 						<tbody>
 							<tr ng-repeat="entity in eventData.entities">
 								<td>
-									<a ng-href="#/entities/{{ entity.id }}">
-										#{{ entity.id }}({{ entity.nickname }})
-									</a>
+									<a ng-if="entity.id !== -1" href="#/entities/{{ entity.id }}">#{{ entity.id }}({{ entity.nickname }})</a>
+									<span ng-if="entity.id == -1">{{ entity.nickname }}</span>
 								</td>
 								<td>{{ entity.accuracy }}</td>
 								<td>{{ entity.include }}</td>
