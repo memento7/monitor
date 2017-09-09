@@ -25,7 +25,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 
 			$.get(JOBAPI_BASE + '/jobs', function (result) {
 				// console.log(result);
-				$scope.jobs = result;
+				$scope.jobs = result.slice(0,30);
 				$scope.jobs = $scope.jobs.filter(function(job) {
 					return job.type != "JobTask";
 				});
@@ -68,25 +68,76 @@ function jobsCtrl($scope, COLORS, $interval) {
 			});
 		});
 
-		$.get(JOBAPI_BASE + '/jobs/histories?size=10000', function (result) {
-			// console.log(result);
-			$scope.jobhistories = result;
-			$scope.jobhistories = $scope.jobhistories.filter(function(job) {
-				return job.type != "JobTask";
-			});
-			$.each(result, function(index){
-				var job = result[index];
-				var parameter = extractParameter(job);
-				job.parameter = parameter;
-			});
+        $('#jobhistory-table').DataTable().clear().destroy();
+        $('#jobhistory-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax":function (data, callback, settings) {
+                // Pageable에 맞게끔 파라메터를 가공
+                var page = data.start / data.length;
+                var size = data.length;
+                var search = data.search.value;
+                var orders = "";
+                var draw = data.draw;
 
-			if(jobHistoryTable)
-				jobHistoryTable.destroy();
-			$scope.$apply();
-			jobHistoryTable = $('#jobhistory-table').DataTable({
-				"order": [[ 4, "desc" ]]
-			});
-		});
+                // 가공된 파라메터로 요청
+                $.ajax({url: JOBAPI_BASE + '/jobs/histories',
+                    data: $.extend({}, {
+                        "page": page,
+                        "size": size,
+                        "searchString": search,
+                        "sort": orders
+                    }),
+                    success: function(data){
+                        $.each(data["content"], function(index){
+                            var job = data["content"][index];
+                            var parameter = extractParameter(job);
+                            job.parameter = parameter;
+                        });
+
+                        // 결과값을 DataTables에 맞게 다시 가공
+                        callback({
+                            "draw": draw,
+                            "recordsFiltered": data["totalElements"],
+                            "recordsTotal": data["totalElements"],
+                            "data": data["content"]
+                        });
+                    }});
+
+            },
+            columns: [
+                { title: "ID", data: "id", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='#/jobs/" + oData.id + "?isHistory=true' class='page-item'>" + oData.id + "</a>");
+                } },
+        		{ title: "타입", data: "type" },
+				{ title: "파라메터", data: "parameter" },
+				{ title: "순서", data: "order_index" },
+				{ title: "시작시간", data: "start_time" },
+				{ title: "종료시간", data: "end_time" },
+				{ title: "상태", data: "status" }
+            ],
+            "order": [[ 4, "desc" ]]
+        });
+        //
+		// $.get(JOBAPI_BASE + '/jobs/histories', function (result) {
+		// 	// console.log(result);
+		// 	$scope.jobhistories = result;
+		// 	$scope.jobhistories = $scope.jobhistories.filter(function(job) {
+		// 		return job.type != "JobTask";
+		// 	});
+		// 	$.each(result, function(index){
+		// 		var job = result[index];
+		// 		var parameter = extractParameter(job);
+		// 		job.parameter = parameter;
+		// 	});
+        //
+		// 	if(jobHistoryTable)
+		// 		jobHistoryTable.destroy();
+		// 	$scope.$apply();
+		// 	jobHistoryTable = $('#jobhistory-table').DataTable({
+        //
+		// 	});
+		// });
 
 		function extractParameter(job) {
 			if(job.metadata.error != undefined)
@@ -101,7 +152,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 				return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 			}
 		}	
-	}), 3500);
+	}), 30000);
 	getData();
 }
 

@@ -114,7 +114,7 @@ function dashboardCtrl($scope, COLORS, $interval) {
 
 				$.get(JOBAPI_BASE + '/jobs', function (result) {
 				// console.log(result);
-				$scope.jobs = result;
+				$scope.jobs = result.slice(0,30);
 				$scope.jobs = $scope.jobs.filter(function(job) {
 					return job.type != "JobTask";
 				});
@@ -170,7 +170,7 @@ function dashboardCtrl($scope, COLORS, $interval) {
 				return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 			}
 		}	
-	}), 3500);
+	}), 35000);
 	getJobData();
 }
 
