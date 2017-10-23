@@ -25,7 +25,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 
 			$.get(JOBAPI_BASE + '/jobs', function (result) {
 				// console.log(result);
-				$scope.jobs = result.slice(0,30);
+				$scope.jobs = result;
 				$scope.jobs = $scope.jobs.filter(function(job) {
 					return job.type != "JobTask";
 				});
@@ -35,6 +35,8 @@ function jobsCtrl($scope, COLORS, $interval) {
 					if(count[job.status] != undefined)
 						count[job.status]++;
 					var parameter = extractParameter(job);
+					if(parameter == undefined)
+						parameter = "";
 					job.parameter = parameter;
 					if(job.metadata["command_param"] != undefined) {
 						var serverId = job.metadata["command_param"].serverId;
@@ -72,12 +74,13 @@ function jobsCtrl($scope, COLORS, $interval) {
         $('#jobhistory-table').DataTable({
             "processing": true,
             "serverSide": true,
+            "bSort": false,
             "ajax":function (data, callback, settings) {
                 // Pageable에 맞게끔 파라메터를 가공
                 var page = data.start / data.length;
                 var size = data.length;
                 var search = data.search.value;
-                var orders = "";
+                var orders = "startTime,desc";
                 var draw = data.draw;
 
                 // 가공된 파라메터로 요청
@@ -89,7 +92,10 @@ function jobsCtrl($scope, COLORS, $interval) {
                         "sort": orders
                     }),
                     success: function(data){
-                        $.each(data["content"], function(index){
+                        var content = data["content"].filter(function(job){
+                        	return job.type != "JobTask";
+                        });
+                        $.each(content, function(index){
                             var job = data["content"][index];
                             var parameter = extractParameter(job);
                             job.parameter = parameter;
@@ -100,7 +106,7 @@ function jobsCtrl($scope, COLORS, $interval) {
                             "draw": draw,
                             "recordsFiltered": data["totalElements"],
                             "recordsTotal": data["totalElements"],
-                            "data": data["content"]
+                            "data": content
                         });
                     }});
 
@@ -151,7 +157,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 				var param = job.metadata.memento_cluster_param;
 				return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 			}
-			return "";
+			return "None";
 		}	
 	}), 30000);
 	getData();
