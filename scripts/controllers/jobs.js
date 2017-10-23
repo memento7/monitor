@@ -96,7 +96,7 @@ function jobsCtrl($scope, COLORS, $interval) {
                         	return job.type != "JobTask";
                         });
                         $.each(content, function(index){
-                            var job = data["content"][index];
+                            var job = content[index];
                             var parameter = extractParameter(job);
                             job.parameter = parameter;
                         });
