@@ -151,6 +151,7 @@ function jobsCtrl($scope, COLORS, $interval) {
 				var param = job.metadata.memento_cluster_param;
 				return param.entity + ", " + new Date(param.fromDate).yyyymmdd() + "~" + new Date(param.toDate).yyyymmdd() + ", " + param.elasticJobId;
 			}
+			return "";
 		}	
 	}), 30000);
 	getData();
